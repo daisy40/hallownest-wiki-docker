@@ -1,0 +1,193 @@
+x-mw-volumes: &mw-volumes
+  - ./data/images:/var/www/html/images
+  - ./mediawiki/config/LocalSettings.php:/var/www/html/LocalSettings.php
+
+x-jobrunner-build: &jobrunner-build
+  context: ./jobrunner
+  additional_contexts:
+    mediawiki: "service:mediawiki"
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  db:
+    image: mariadb:12.3
+    restart: unless-stopped
+    command:
+      - --innodb-buffer-pool-size=512M
+      - --max-connections=60
+      - --skip-name-resolve
+      - --tmp-table-size=64M
+      - --max-heap-table-size=64M
+    environment:
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - ./data/db:/var/lib/mysql
+    mem_limit: 1g
+    logging: *logging
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 15s
+
+  valkey:
+    image: valkey/valkey:8-alpine
+    restart: unless-stopped
+    command: >
+      valkey-server
+      --save ""
+      --appendonly no
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 10s
+      retries: 5
+    mem_limit: 384m
+    logging: *logging
+
+  valkey-jobs:
+    image: valkey/valkey:8-alpine
+    restart: unless-stopped
+    command: >
+      valkey-server
+      --appendonly yes
+      --maxmemory 128mb
+      --maxmemory-policy noeviction
+    volumes:
+      - ./data/jobs:/data
+    mem_limit: 256m
+    logging: *logging
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli ping | grep -q PONG"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 5s
+
+  mediawiki:
+    build: ./mediawiki
+    image: my-mediawiki:1.46
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+      valkey-jobs:
+        condition: service_healthy
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes: *mw-volumes
+    mem_limit: 1536m
+    logging: *logging
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@fsockopen('127.0.0.1', 9000) ? 0 : 1);"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+  jobrunner:
+    build: *jobrunner-build
+    image: my-jobrunner:1.46
+    restart: unless-stopped
+    init: true
+    depends_on:
+      db:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+      valkey-jobs:
+        condition: service_healthy
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes: *mw-volumes
+    mem_limit: 1g
+    logging: *logging
+
+  jobrunner-chron:
+    build: *jobrunner-build
+    image: my-jobrunner:1.46
+    restart: unless-stopped
+    init: true
+    environment:
+      RUNNER_TYPE: Chron
+    depends_on:
+      valkey-jobs:
+        condition: service_healthy
+    mem_limit: 128m
+    logging: *logging
+
+  cron:
+    build: ./mediawiki
+    image: my-mediawiki:1.46
+    restart: unless-stopped
+    init: true
+    user: www-data
+    working_dir: /var/www/html
+    command: ["supercronic", "/etc/crontab"]
+    depends_on:
+      db:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+      valkey-jobs:
+        condition: service_healthy
+    volumes:
+      - ./data/images:/var/www/html/images
+      - ./mediawiki/config/LocalSettings.php:/var/www/html/LocalSettings.php
+      - ./mediawiki/config/crontab:/etc/crontab:ro
+      - ./data/sitemap:/var/www/html/sitemap
+    mem_limit: 256m
+    logging: *logging
+
+  opensearch:
+    build: ./opensearch
+    image: my-opensearch:2.19.7
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      DISABLE_SECURITY_PLUGIN: "true"
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+      OPENSEARCH_JAVA_OPTS: "-Xms1g -Xmx1g"
+    ulimits:
+      nofile: { soft: 65536, hard: 65536 }
+    volumes:
+      - ./data/search:/usr/share/opensearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:9200/_cluster/health || exit 1"]
+      interval: 15s
+      retries: 10
+    mem_limit: 2g
+    logging: *logging
+
+  nginx:
+    build:
+      context: ./nginx
+      additional_contexts:
+        mediawiki: "service:mediawiki"
+    restart: unless-stopped
+    depends_on:
+      mediawiki:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    volumes:
+      - ./data/images:/var/www/html/images:ro
+      - ./data/sitemap:/var/www/html/sitemap:ro
+    mem_limit: 128m
+    logging: *logging

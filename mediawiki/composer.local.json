@@ -1,0 +1,573 @@
+{
+        "require": {
+                "chariz/details": "1.46.0",
+                "mediawiki/advanced-search": "1.46.0",
+                "mediawiki/antispoof": "1.46.0",
+                "mediawiki/cargo": "3.9",
+                "mediawiki/category-sort-headers": "1.46.0",
+                "mediawiki/cldr": "2025.03",
+                "mediawiki/code-mirror": "1.46.0",
+                "mediawiki/commons-metadata": "1.46.0",
+                "mediawiki/disambiguator": "1.46.0",
+                "mediawiki/dismissable-site-notice": "1.46.0",
+                "mediawiki/honeypot": "1.46.0",
+                "mediawiki/mediasearch": "1.46.0",
+                "mediawiki/ms-upload": "1.46.0",
+                "mediawiki/popups": "1.46.0",
+                "mediawiki/related-articles": "1.46.0",
+                "mediawiki/revisionslider": "1.46.0",
+                "mediawiki/sandbox-link": "1.46.0",
+                "mediawiki/searchthumbs": "1.46.0",
+                "mediawiki/template-sandbox": "1.46.0",
+                "mediawiki/twocolconflict": "1.46.0",
+                "mediawiki/upload-wizard": "1.46.0",
+                "mediawiki/urlshortener": "1.46.0",
+                "mediawiki/variables": "1.46.0",
+                "octfx/multipurge": "dev-master",
+                "octfx/template-styles-extender": "dev-master",
+                "octfx/wiki-seo": "dev-master",
+                "saucylegs/pictocat": "0.5.0",
+                "starcitizentools/ag-grid": "dev-main",
+                "starcitizentools/apiunto": "dev-main",
+                "starcitizentools/citizen-skin": "dev-main",
+                "starcitizentools/floating-ui": "dev-main",
+                "starcitizentools/short-description": "dev-main",
+                "starcitizentools/tabber-neue": "dev-main",
+                "starcitizentools/thumbro": "dev-main",
+                "starcitizenwiki/embedvideo": "dev-master",
+                "telepedia/tableprogresstracking": "dev-main",
+                "telepedia/user-profile-v2": "dev-main",
+                "weirdgloop/searchdigest": "1.43.0",
+                "weirdgloop/yappin": "dev-main"
+        },
+        "config": {
+                "preferred-install": {
+                        "*": "source"
+                }
+        },
+        "extra": {
+                "merge-plugin": {
+                        "include": [
+                                "extensions/AbuseFilter/composer.json",
+                                "extensions/CheckUser/composer.json",
+                                "extensions/Cite/composer.json",
+                                "extensions/TemplateStyles/composer.json",
+                                "extensions/Apiunto/composer.json"
+                        ]
+                }
+        },
+        "repositories": [
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/advanced-search",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-AdvancedSearch/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-AdvancedSearch.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/upload-wizard",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-UploadWizard/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-UploadWizard.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/template-sandbox",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-TemplateSandbox/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-TemplateSandbox.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/twocolconflict",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-TwoColConflict/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-TwoColConflict.git",
+                                        "reference": "REL1_46"
+                                },
+                                "extra": {
+                                        "installer-name": "TwoColConflict"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/urlshortener",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-UrlShortener/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-UrlShortener.git",
+                                        "reference": "REL1_46"
+                                },
+                                "extra": {
+                                    "installer-name": "UrlShortener"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/code-mirror",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-CodeMirror/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-CodeMirror.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/ms-upload",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-MsUpload/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-MsUpload.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/revisionslider",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-RevisionSlider/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-RevisionSlider.git",
+                                        "reference": "REL1_46"
+                                },
+                                "extra": {
+                                    "installer-name": "RevisionSlider"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/searchthumbs",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-SearchThumbs/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-SearchThumbs.git",
+                                        "reference": "REL1_46"
+                                },
+                                "extra": {
+                                    "installer-name": "SearchThumbs"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/dismissable-site-notice",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-DismissableSiteNotice/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-DismissableSiteNotice.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/variables",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-Variables/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-Variables.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/category-sort-headers",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-CategorySortHeaders/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-CategorySortHeaders.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/disambiguator",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-Disambiguator/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-Disambiguator.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/honeypot",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-HoneyPot/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-HoneyPot.git",
+                                        "reference": "REL1_46"
+                                },
+                                "extra": {
+                                    "installer-name": "HoneyPot"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/antispoof",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-AntiSpoof/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-AntiSpoof.git",
+                                        "reference": "REL1_46"
+                                },
+                                "extra": {
+                                    "installer-name": "AntiSpoof"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "chariz/details",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/chariz/mediawiki-extensions-Details/archive/main.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/chariz/mediawiki-extensions-Details.git",
+                                        "reference": "main"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/elastica",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-Elastica/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-Elastica.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/cirrus-search",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-CirrusSearch/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-CirrusSearch.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/commons-metadata",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-CommonsMetadata/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-CommonsMetadata.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/mediasearch",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-MediaSearch/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-MediaSearch.git",
+                                        "reference": "REL1_46"
+                                },
+                                "extra": {
+                                    "installer-name": "MediaSearch"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/popups",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-Popups/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-Popups.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/sandbox-link",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-SandboxLink/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-SandboxLink.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "mediawiki/related-articles",
+                                "type": "mediawiki-extension",
+                                "version": "1.46.0",
+                                "dist": {
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-RelatedArticles/archive/REL1_46.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/wikimedia/mediawiki-extensions-RelatedArticles.git",
+                                        "reference": "REL1_46"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "weirdgloop/searchdigest",
+                                "type": "mediawiki-extension",
+                                "version": "1.43.0",
+                                "dist": {
+                                        "url": "https://github.com/weirdgloop/mediawiki-extensions-SearchDigest/archive/REL1_43.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/weirdgloop/mediawiki-extensions-SearchDigest.git",
+                                        "reference": "REL1_43"
+                                },
+                                "extra": {
+                                    "installer-name": "SearchDigest"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "weirdgloop/yappin",
+                                "type": "mediawiki-extension",
+                                "version": "dev-main",
+                                "dist": {
+                                        "url": "https://github.com/weirdgloop/mediawiki-extensions-Yappin/archive/refs/heads/main.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/weirdgloop/mediawiki-extensions-Yappin.git",
+                                        "reference": "main"
+                                },
+                                "extra": {
+                                    "installer-name": "Yappin"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "saucylegs/pictocat",
+                                "type": "mediawiki-extension",
+                                "version": "0.5.0",
+                                "dist": {
+                                        "url": "https://github.com/saucylegs/PictoCat/archive/refs/tags/v0.5.0.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/saucylegs/PictoCat.git",
+                                        "reference": "v0.5.0"
+                                },
+                                "extra": {
+                                    "installer-name": "PictoCat"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "telepedia/tableprogresstracking",
+                                "type": "mediawiki-extension",
+                                "version": "dev-main",
+                                "dist": {
+                                        "url": "https://github.com/Telepedia/TableProgressTracking/archive/refs/heads/main.zip",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://github.com/telepedia/TableProgressTracking.git",
+                                        "reference": "main"
+                                },
+                                "extra": {
+                                    "installer-name": "TableProgressTracking"
+                                }
+                        }
+                },
+                {
+                        "type": "package",
+                        "package": {
+                                "name": "telepedia/user-profile-v2",
+                                "type": "mediawiki-extension",
+                                "version": "1.1.0",
+                                "dist": {
+                                        "url": "https://gitlab.com/telepedia/extensions/userprofilev2/-/archive/v1.1.0/userprofilev2-v1.1.0.zip?ref_type=tags",
+                                        "type": "zip"
+                                },
+                                "source": {
+                                        "type": "git",
+                                        "url": "https://gitlab.com/telepedia/extensions/userprofilev2",
+                                        "reference": "v1.1.0"
+                                },
+                                "extra": {
+                                    "installer-name": "UserProfileV2"
+                                }
+                        }
+                }
+        ]
+}
