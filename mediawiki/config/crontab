@@ -1,2 +1,2 @@
 # min hour day month day_of_week
-30 3 * * * php /var/www/html/maintenance/run.php generateSitemap --fspath=/var/www/html/sitemap --urlpath=/sitemap --identifier=hallownest --compress=yes --skip-redirects
+15 4 * * 1 php /var/www/html/maintenance/run.php generateSitemap --fspath=/var/www/html/sitemap --urlpath=/sitemap --identifier=hallownest --compress=yes --skip-redirects

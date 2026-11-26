@@ -1,4 +1,4 @@
-Sitemap: https://hallownest.wiki/sitemap-index-hallownest.xml
+Sitemap: https://hallownest.wiki/sitemap/sitemap-index-hallownest.xml
 
 User-agent: MJ12bot
 Disallow: /
