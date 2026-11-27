@@ -1,11 +1,15 @@
+x-mw-env: &mw-env
+  DB_NAME: ${DB_NAME:?set DB_NAME in .env}
+  DB_USER: ${DB_USER:?set DB_USER in .env}
+  DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+  MEDIAWIKI_SECRETKEY: ${MEDIAWIKI_SECRETKEY:?set MEDIAWIKI_SECRETKEY in .env}
+  MEDIAWIKI_UPGRADEKEY: ${MEDIAWIKI_UPGRADEKEY:?set MEDIAWIKI_UPGRADEKEY in .env}
+  CLOUDFLARE_ZONEID: ${CLOUDFLARE_ZONEID:-}
+  CLOUDFLARE_APITOKEN: ${CLOUDFLARE_APITOKEN:-}
+
 x-mw-volumes: &mw-volumes
   - ./data/images:/var/www/html/images
-  - ./mediawiki/config/LocalSettings.php:/var/www/html/LocalSettings.php
-
-x-jobrunner-build: &jobrunner-build
-  context: ./jobrunner
-  additional_contexts:
-    mediawiki: "service:mediawiki"
+  - ./mediawiki/config/LocalSettings.php:/var/www/html/LocalSettings.php:ro
 
 x-logging: &logging
   driver: json-file
@@ -24,10 +28,10 @@ services:
       - --tmp-table-size=64M
       - --max-heap-table-size=64M
     environment:
-      MARIADB_DATABASE: ${DB_NAME}
-      MARIADB_USER: ${DB_USER}
-      MARIADB_PASSWORD: ${DB_PASSWORD}
-      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME:?set DB_NAME in .env}
+      MARIADB_USER: ${DB_USER:?set DB_USER in .env}
+      MARIADB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?set DB_ROOT_PASSWORD in .env}
     volumes:
       - ./data/db:/var/lib/mysql
     mem_limit: 1g
@@ -85,10 +89,7 @@ services:
         condition: service_healthy
       valkey-jobs:
         condition: service_healthy
-    environment:
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+    environment: *mw-env
     volumes: *mw-volumes
     mem_limit: 1536m
     logging: *logging
@@ -100,7 +101,10 @@ services:
       start_period: 10s
 
   jobrunner:
-    build: *jobrunner-build
+    build:
+      context: ./jobrunner
+      additional_contexts:
+        mediawiki: "service:mediawiki"
     image: my-jobrunner:1.46
     restart: unless-stopped
     init: true
@@ -111,45 +115,47 @@ services:
         condition: service_healthy
       valkey-jobs:
         condition: service_healthy
-    environment:
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+    environment: *mw-env
     volumes: *mw-volumes
     mem_limit: 1g
     logging: *logging
 
   jobrunner-chron:
-    build: *jobrunner-build
     image: my-jobrunner:1.46
+    pull_policy: never
     restart: unless-stopped
     init: true
     environment:
       RUNNER_TYPE: Chron
     depends_on:
+      jobrunner:
+        condition: service_started
       valkey-jobs:
         condition: service_healthy
     mem_limit: 128m
     logging: *logging
 
   cron:
-    build: ./mediawiki
     image: my-mediawiki:1.46
+    pull_policy: never
     restart: unless-stopped
     init: true
     user: www-data
     working_dir: /var/www/html
     command: ["supercronic", "/etc/crontab"]
     depends_on:
+      mediawiki:
+        condition: service_healthy
       db:
         condition: service_healthy
       valkey:
         condition: service_healthy
       valkey-jobs:
         condition: service_healthy
+    environment: *mw-env
     volumes:
       - ./data/images:/var/www/html/images
-      - ./mediawiki/config/LocalSettings.php:/var/www/html/LocalSettings.php
+      - ./mediawiki/config/LocalSettings.php:/var/www/html/LocalSettings.php:ro
       - ./mediawiki/config/crontab:/etc/crontab:ro
       - ./data/sitemap:/var/www/html/sitemap
     mem_limit: 256m
@@ -185,9 +191,11 @@ services:
       mediawiki:
         condition: service_healthy
     ports:
-      - "8080:80"
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
     volumes:
       - ./data/images:/var/www/html/images:ro
       - ./data/sitemap:/var/www/html/sitemap:ro
+      - ${CERTS_DIR:-/etc/letsencrypt}:/etc/letsencrypt:ro
     mem_limit: 128m
     logging: *logging
