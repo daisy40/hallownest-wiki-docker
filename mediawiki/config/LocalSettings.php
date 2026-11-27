@@ -426,7 +426,6 @@ wfLoadExtensions([
 
 // Citizen needs to be loaded after extensions to display correct icons for extensions
 wfLoadSkin("Citizen");
-wfLoadSkin("Vector");
 // Set Citizen to the default skin
 $wgDefaultSkin = "citizen";
 
@@ -822,6 +821,51 @@ $wgUploadWizardConfig = [
  */
 $wgUrlShortenerEnableQrCode = true;
 $wgUrlShortenerTemplate = '/r/$1';
+
+/**
+ * Extension:UserProfileV2
+ *
+ * @see https://gitlab.com/telepedia/extensions/userprofilev2
+ */
+$wgUserProfileV2ProfileFields = [
+    'profile-aboutme',
+    [
+        'key' => 'profile-github',
+        'type' => 'text',
+        'label' => 'GitHub',
+        'name' => 'GitHub',
+        'placeholder' => 'Никнейм',
+        'help' => 'Ваш никнейм на GitHub',
+        'url' => 'https://github.com/$1',
+        'maxlength' => 64,
+        'icon' => '<?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M16 22.0268V19.1568C16.0375 18.68 15.9731 18.2006 15.811 17.7506C15.6489 17.3006 15.3929 16.8902 15.06 16.5468C18.2 16.1968 21.5 15.0068 21.5 9.54679C21.4997 8.15062 20.9627 6.80799 20 5.79679C20.4558 4.5753 20.4236 3.22514 19.91 2.02679C19.91 2.02679 18.73 1.67679 16 3.50679C13.708 2.88561 11.292 2.88561 8.99999 3.50679C6.26999 1.67679 5.08999 2.02679 5.08999 2.02679C4.57636 3.22514 4.54413 4.5753 4.99999 5.79679C4.03011 6.81549 3.49251 8.17026 3.49999 9.57679C3.49999 14.9968 6.79998 16.1868 9.93998 16.5768C9.61098 16.9168 9.35725 17.3222 9.19529 17.7667C9.03334 18.2112 8.96679 18.6849 8.99999 19.1568V22.0268" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 20.0267C6 20.9999 3.5 20.0267 2 17.0267" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+    ],
+    'profile-discord',
+    [
+        'key' => 'profile-youtube',
+        'type' => 'text',
+        'label' => 'YouTube',
+        'name' => 'YouTube',
+        'placeholder' => 'Псевдоним',
+        'help' => 'Ваш @псевдоним без символа @',
+        'url' => 'https://www.youtube.com/@$1',
+        'maxlength' => 64,
+        'icon' => '<?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M14 12L10.5 14V10L14 12Z" fill="#000000" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 12.7075V11.2924C2 8.39705 2 6.94939 2.90549 6.01792C3.81099 5.08645 5.23656 5.04613 8.08769 4.96549C9.43873 4.92728 10.8188 4.8999 12 4.8999C13.1812 4.8999 14.5613 4.92728 15.9123 4.96549C18.7634 5.04613 20.189 5.08645 21.0945 6.01792C22 6.94939 22 8.39705 22 11.2924V12.7075C22 15.6028 22 17.0505 21.0945 17.9819C20.189 18.9134 18.7635 18.9537 15.9124 19.0344C14.5613 19.0726 13.1812 19.1 12 19.1C10.8188 19.1 9.43867 19.0726 8.0876 19.0344C5.23651 18.9537 3.81097 18.9134 2.90548 17.9819C2 17.0505 2 15.6028 2 12.7075Z" stroke="#000000" stroke-width="1.5"></path></svg>',
+    ],
+    [
+        'key' => 'profile-telegram',
+        'type' => 'text',
+        'label' => 'Telegram',
+        'name' => 'Telegram',
+        'placeholder' => 'Имя пользователя',
+        'help' => 'Ваше имя пользователя без символа @',
+        'url' => 'https://t.me/$1',
+        'maxlength' => 64,
+        'icon' => '<?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M21 5L2 12.5L9 13.5M21 5L18.5 20L9 13.5M21 5L9 13.5M9 13.5V19L12.2488 15.7229" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+    ],
+    'profile-show-globalgroups',
+    'profile-show-globaledits',
+];
 
 /**
  * Extension:VisualEditor
