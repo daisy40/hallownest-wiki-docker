@@ -643,7 +643,7 @@ $wgParsoidSettings = [
  * @see https://github.com/wikimedia/mediawiki-extensions-RelatedArticles
  */
 // Enable RelatedArticle for Citizen
-$wgRelatedArticlesFooterWhitelistedSkins = ["citizen"];
+$wgRelatedArticlesFooterAllowedSkins = ["citizen"];
 // Needed because we changed script path for Short URL
 $wgRelatedArticlesUseCirrusSearchApiUrl = "/api.php";
 // wikidata is supplied by Extension:ShortDescription
@@ -883,7 +883,7 @@ $wgDefaultUserOptions["visualeditor-enable"] = 1;
 // Default to new source editor
 $wgDefaultUserOptions["visualeditor-newwikitext"] = 1;
 // It is enabled by default, no need to add it to preferences
-$wgPrefs[] = "visualeditor-enable";
+$wgHiddenPrefs[] = "visualeditor-enable";
 
 /**
  * Extension:WikiEditor
@@ -897,7 +897,7 @@ $wgWikiEditorRealtimePreview = true;
  *
  * @see https://github.com/wikimedia/mediawiki-extensions-WikiSEO
  */
-$wgWikiSeoDefaultLanguange = "ru";
+$wgWikiSeoDefaultLanguage = "ru";
 // Disable wgLogo as fallback image in embed
 $wgWikiSeoDisableLogoFallbackImage = true;
 // Use TextExtracts description
