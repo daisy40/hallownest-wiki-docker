@@ -36,7 +36,7 @@
                 "starcitizentools/thumbro": "dev-main",
                 "starcitizenwiki/embedvideo": "dev-master",
                 "telepedia/tableprogresstracking": "dev-main",
-                "telepedia/user-profile-v2": "dev-main",
+                "telepedia/user-profile-v2": "1.1.0",
                 "weirdgloop/searchdigest": "1.43.0",
                 "weirdgloop/yappin": "dev-main"
         },
